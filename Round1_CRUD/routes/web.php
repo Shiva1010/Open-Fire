@@ -22,3 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth:web']], function () {
     Route::resource('post', 'PostController');
 });
+
+
