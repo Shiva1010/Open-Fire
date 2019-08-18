@@ -3,9 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\PostRepository;
 
 class PostController extends Controller
 {
+    protected $postRepo;
+
+    public function __construct(PostRepository $postRepo)
+    {
+        $this->postRepo = $postRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +21,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = $this->postRepo->index();
+        return view('post.index', ['posts' => $posts]);
     }
 
     /**
@@ -45,7 +54,13 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = $this->postRepo->find($id);
+
+        if (!$post) {
+            return redirect()->route('post.index');
+        }
+
+        return view('post.show', ['post' => $post]);
     }
 
     /**

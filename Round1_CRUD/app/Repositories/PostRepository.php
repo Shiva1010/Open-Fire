@@ -6,5 +6,13 @@ use App\Entities\Post;
 
 class PostRepository
 {
+    public function index()
+    {
+        return Post::with('user')->get();
+    }
 
+    public function find($id)
+    {
+        return Post::with('user')->find($id);
+    }
 }
