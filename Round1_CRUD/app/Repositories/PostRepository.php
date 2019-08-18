@@ -15,4 +15,9 @@ class PostRepository
     {
         return Post::with('user')->find($id);
     }
+
+    public function delete($id)
+    {
+        return Post::destroy($id);
+    }
 }

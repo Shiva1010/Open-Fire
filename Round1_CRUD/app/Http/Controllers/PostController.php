@@ -94,6 +94,12 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $result = $this->postRepo->delete($id);
+
+        if ($result) {
+            return redirect()->route('post.index');
+        }
+
+        return back();
     }
 }
