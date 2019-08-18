@@ -32,7 +32,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('post.create');
     }
 
     /**
@@ -43,7 +43,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = $this->postRepo->create(request()->only('title', 'content'));
+
+        if ($post) {
+            return redirect()->route('post.show', $post->id);
+        }
+
+        return back();
     }
 
     /**

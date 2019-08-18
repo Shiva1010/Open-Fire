@@ -20,4 +20,10 @@ class PostRepository
     {
         return Post::destroy($id);
     }
+
+    public function create(array $data)
+    {
+        return auth()->user()->posts()->create($data);
+    }
+
 }
