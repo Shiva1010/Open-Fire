@@ -77,7 +77,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = $this->postRepo->find($id);
+
+        if (!$post) {
+            return redirect()->route('post.index');
+        }
+
+        return view('post.edit', ['post' => $post]);
     }
 
     /**
@@ -89,7 +95,13 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $result = $this->postRepo->update($id, request()->only('title', 'content'));
+
+        if (!$result) {
+            return redirect()->route('post.index');
+        }
+
+        return redirect()->route('post.show', $id);
     }
 
     /**
