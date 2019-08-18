@@ -26,4 +26,10 @@ class PostRepository
         return auth()->user()->posts()->create($data);
     }
 
+    public function update($id, array $data)
+    {
+        $post = Post::find($id);
+        return $post ? $post->update($data) : false;
+    }
+
 }
