@@ -19,8 +19,25 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::group(['middleware' => ['auth:web']], function () {
     Route::resource('post', 'PostController');
 });
 
 
+Route::group(['middleware' => ['auth:web']], function () {
+    Route::resource('/post/get', 'PostController');
+});
+
+Route::group(['middleware' => ['auth:web']], function () {
+    Route::resource('/post/post', 'PostController');
+});
+
+
+Route::group(['middleware' => ['auth:web']], function () {
+    Route::resource('/post/put', 'PostController');
+});
+
+Route::group(['middleware' => ['auth:web']], function () {
+    Route::resource('/post/delete', 'PostController');
+});
