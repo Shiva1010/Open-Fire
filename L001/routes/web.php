@@ -19,3 +19,24 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('products','ProductController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('login', 'Admin\LoginController@showLoginForm');
+    Route::post('login', 'Admin\LoginController@login');
+    Route::post('logout', 'Admin\LoginController@logout');
+
+    Route::get('/', 'Admin\IndexController@index');
+});
