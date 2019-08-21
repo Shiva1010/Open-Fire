@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('Loves','LoveController');
+
+
+Route::get('/Love','LoveController@index');
+Route::get('/Love/{lid}','LoveController@show');
+
+Route::post('/Love','LoveController@Store');
