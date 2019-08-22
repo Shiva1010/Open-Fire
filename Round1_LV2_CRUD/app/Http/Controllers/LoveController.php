@@ -33,15 +33,17 @@ class LoveController extends Controller
         $request->validate([
             'Lname' => 'required',
             'Lemail' => 'required',
-            'Lemail_verified_at' => 'required',
             'Lpassword' => 'required',
 
         ]);
 
-        Love::create($request->all);
+        Love::create($request->all());
 
         return '用戶註冊成功。。。';
     }
+
+
+
 
 
     /**
@@ -61,6 +63,7 @@ class LoveController extends Controller
 //
 //        return [
 //            ''
+        //  Logger->info(request()->input());
 ////        ]
         return $lid;
     }
@@ -73,18 +76,24 @@ class LoveController extends Controller
      * @param \App\Love $love
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Love $love)
+    public function update(Request $request, Love $lid)
     {
+
+//        return $love;
+//        dd($lid);s
         $request->validate([
             'Lname' => 'required',
-            'Lemail' => 'required',
+            'Lemail' => 'required|unique:users,email,' . $lid->Lid,
             'Lpassword' => 'required',
         ]);
+//        $lid->update(
+//            [
+//                'Lname' => $request->Lname
+//            ]
+//        );
+        $lid->update($request->all());
 
-        $love->update($request->all());
-
-        return redirect()->route('Loves.index')
-            ->with('success', 'Love updated successfully');
+        return 'Love updated successfully';
     }
 
     /**
@@ -93,12 +102,11 @@ class LoveController extends Controller
      * @param \App\Love $love
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Love $love)
+    public function destroy(Love $lid)
     {
-        $love->delete();
+        $lid->delete();
 
-        return redirect()->route('loves.index')
-            ->with('success','love deleted successfully');
+        return 'love deleted successfully';
     }
 
 

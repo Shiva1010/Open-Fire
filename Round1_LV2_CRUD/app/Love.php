@@ -19,9 +19,13 @@ class Love extends Model
         'password', 'remember_token',
     ];
 
-    public function getRouteKeyName()
-    {
-        return 'Lid';
-    }
+    protected $primaryKey = 'Lid';
+
+
+
+//    public function getRouteKeyName()
+//    {
+//        return 'Lid';
+//    }
 
 }

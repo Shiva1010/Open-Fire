@@ -19,8 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('Loves','LoveController');
 
+Route::post('/Love','LoveController@store');
 
 Route::get('/Love','LoveController@index');
 Route::get('/Love/{lid}','LoveController@show');
 
-Route::post('/Love','LoveController@Store');
+Route::put('/Love/{lid}', 'LoveController@update');
+
+
+Route::delete('/Love/{lid}', 'LoveController@destroy');
+
+
