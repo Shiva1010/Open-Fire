@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 
 
 Route::post('/user','UserController@store');
+Route::post('/admin','AdminController@store');
 
 
 // 預設Ｕser Route
@@ -41,7 +42,9 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 
 
-// 預設Admin Route
-// Route::get('/Admin/{id}', 'AdminController@show')->middleware('auth:admin.api');
-// Route::put('/Admin/{id}', 'AdminController@update')->middleware('auth:admin.api');
-// Route::delete('/Admin/{id}', 'AdminController@ddestroy')->middleware('auth:admin.api');
+ //  預設Admin Route
+Route::group(['middleware' => ['auth:admin']], function () {
+    Route::get('/admin', 'AdminController@show');
+    Route::put('/admin', 'AdminController@update');
+    Route::delete('/admin/{id}', 'AdminController@destroy');
+});

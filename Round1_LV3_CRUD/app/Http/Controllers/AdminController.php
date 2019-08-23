@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
+use App\Admin;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Str;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +19,6 @@ class UserController extends Controller
     {
         //
     }
-
 
 
     /**
@@ -36,33 +36,19 @@ class UserController extends Controller
         ]);
 
 
-       $api_token= Str::random(10);
+        $api_token= Str::random(10);
 
 
-        $Create=User::create([
+        $Create=Admin::create([
             'name' =>$request['name'],
             'email' =>$request['email'],
             'password' => $request['password'],
             'api_token' => $api_token,
 
-//            'api_Token' =>'api_token' = Str::random(60),
         ]);
 
-
-
         if ($Create)
-            return "註冊成功...$api_token";
-
-
-//        return User::create([
-//            'name' => $data['name'],
-//            'email' => $data['email'],
-//            'password' => $data['password'],
-//            'api_token' => Str::random(60),
-//        ]);
-
-       //  User::create($request->all());
-
+            return "管理者註冊成功...$api_token";
 
     }
 
@@ -74,8 +60,7 @@ class UserController extends Controller
      */
     public function show()
     {
-        return Auth::user();            // 通过 Auth facade 来访问已认证的用户：
-
+        return User::all();
     }
 
 
@@ -87,18 +72,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,User $id)
+    public function update(Request $request)
     {
-            $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users,email,' . $id->id,
-            'password' => 'required',
-            ]);
+        $request->validate([
+            'name',
+            'email' => 'unique:users|email',
+            'password',
+        ]);
 
-        $id->update($request->all());
 
-        return 'User updated successfully';
+        Auth::user()->update($request->all());
 
+        return 'Admin updated successfully';
     }
 
     /**
@@ -107,14 +92,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $id)
+    public function destroy($id)        // 尚未指定型態
     {
-        //
+        $user = User::where('id',$id);
 
-        $id->delete();
+        if ($user && $user->delete()){
 
-        return 'User deleted successfully';
+            return 'Admin deleted successfully';
+        }
+
+        else{
+            return '未成功刪除';
+        }
+
     }
+
+
 
 
 
@@ -131,6 +124,7 @@ class UserController extends Controller
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -141,7 +135,6 @@ class UserController extends Controller
     {
         //
     }
-
 
 
 }
