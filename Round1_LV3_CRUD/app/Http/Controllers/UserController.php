@@ -38,8 +38,6 @@ class UserController extends Controller
        $api_token= Str::random(10);
 
 
-
-
         $Create=User::create([
             'name' =>$request['name'],
             'email' =>$request['email'],
@@ -73,9 +71,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $id)
     {
-
+        return $id;
     }
 
 
@@ -87,9 +85,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,User $id)
     {
-        //
+            $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users,email,' . $id->id,
+            'password' => 'required',
+            ]);
+
+        $id->update($request->all());
+
+        return 'User updated successfully';
+
     }
 
     /**
@@ -98,9 +105,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $id)
     {
         //
+
+        $id->delete();
+
+        return 'User deleted successfully';
     }
 
 
