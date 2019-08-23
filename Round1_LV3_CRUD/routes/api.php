@@ -23,6 +23,9 @@ use Illuminate\Http\Request;
 Route::post('/user','UserController@store');
 Route::post('/admin','AdminController@store');
 
+Route::post('/admin/login','AdminLoginController@AdminLogin');
+Route::post('/user/login','UserLoginController@UserLogin');
+
 
 // 預設Ｕser Route
 
