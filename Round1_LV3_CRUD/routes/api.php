@@ -13,10 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    var_dump(Auth::user());
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    var_dump(Auth::user());
+//    return $request->user();
+//});
 
 
 
@@ -28,9 +28,9 @@ Route::post('/user','UserController@store');
 // 群組化
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::get('/user/{id}', 'UserController@show');
-    Route::put('/user/{id}', 'UserController@update');
-    Route::delete('/user/{id}', 'UserController@destroy');
+    Route::get('/user', 'UserController@show');
+    Route::put('/user', 'UserController@update');
+    Route::delete('/user', 'UserController@destroy');
 });
 
 
