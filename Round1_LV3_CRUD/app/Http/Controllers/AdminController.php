@@ -83,6 +83,8 @@ class AdminController extends Controller
 
         Auth::user()->update($request->all());
 
+
+
         return 'Admin updated successfully';
     }
 
@@ -92,7 +94,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)        // 尚未指定型態
+    public function destroy($id)        // 需指定型態
     {
         $user = User::where('id',$id);
 

@@ -27,6 +27,6 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password'
     ];
 }

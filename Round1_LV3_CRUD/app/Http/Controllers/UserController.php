@@ -79,44 +79,81 @@ class UserController extends Controller
     }
 
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request,User $id)
+    public function update(Request $request)
     {
-            $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users,email,' . $id->id,
-            'password' => 'required',
-            ]);
+        $request->validate([
+            'name',
+            'email' => 'unique:users|email',
+            'password',
+        ]);
 
-        $id->update($request->all());
+
+        Auth::user()->update($request->all());
+
+
 
         return 'User updated successfully';
-
-
-
-
     }
+
+
+
+
+
+
+
+
+
+
+
+//    /**
+//     * Update the specified resource in storage.
+//     *
+//     * @param  \Illuminate\Http\Request  $request
+//     * @param  int  $id
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function update(Request $request )
+//    {
+//            $request->validate([
+//            'name' => 'required',
+//            'email' => 'required|unique:users,email,',
+//            'password' => 'required',
+//            ]);
+//
+//        Auth::user()->update($request->all());
+//
+//        return 'User updated successfully';
+//
+//    }
+
+
+
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $id)
+//     */
+    public function destroy($api_token)
     {
-        //
 
-        $id->delete();
+        $user = User::where('api_token',$api_token);
 
-        return 'User deleted successfully';
+        if ($user && $user->delete()){
+
+            return 'User deleted successfully';
+        }
+
+        else{
+            return '未成功刪除';
+        }
+
+
+
+//        $id->delete();
+//
+//        return 'User deleted successfully';
     }
 
 

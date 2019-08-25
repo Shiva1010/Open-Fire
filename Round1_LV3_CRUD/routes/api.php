@@ -34,7 +34,7 @@ Route::post('/user/login','UserLoginController@UserLogin');
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/user', 'UserController@show');
     Route::put('/user', 'UserController@update');
-    Route::delete('/user', 'UserController@destroy');
+    Route::delete('/user/{api_token}', 'UserController@destroy');
 });
 
 
