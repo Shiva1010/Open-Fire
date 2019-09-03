@@ -19,6 +19,41 @@ use Illuminate\Http\Request;
 //});
 
 
+
+Route::post('/login', 'NurseController@login');
+Route::post('/register', 'NurseController@register');
+Route::group(['middleware' => 'auth:nurse'], function(){
+    Route::post('/details', 'API\UserController@details');
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 註冊用
 Route::post('/user','UserController@store');
 Route::post('/admin','AdminController@store');

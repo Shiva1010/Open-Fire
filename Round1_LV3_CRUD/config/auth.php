@@ -52,6 +52,14 @@ return [
             'provider' => 'admins',
             'hash' => false,
         ],
+
+        'nurse' => [
+            'driver' => 'passport',
+            'provider' => 'nurses',
+            'hash' => false,
+        ],
+
+
     ],
 
     /*
@@ -85,6 +93,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'nurses' => [
+            'driver' => 'eloquent',
+            'model' => App\Nurse::class,
+        ],
     ],
 
     /*

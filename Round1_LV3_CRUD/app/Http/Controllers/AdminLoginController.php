@@ -17,6 +17,7 @@ class AdminLoginController extends Controller
         if ($user->update(['api_token'=>$apiToken])) { //update api_token
 
 
+
 //            if ($user->isAdmin)
                 return "login as admin, your api token is $apiToken";
 //            else
