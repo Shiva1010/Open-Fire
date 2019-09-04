@@ -23,7 +23,7 @@ use Illuminate\Http\Request;
 Route::post('/login', 'NurseController@login');
 Route::post('/register', 'NurseController@register');
 Route::group(['middleware' => 'auth:nurse'], function(){
-    Route::post('/details', 'API\UserController@details');
+    Route::delete('/details', 'NurseController@details');
 
 });
 

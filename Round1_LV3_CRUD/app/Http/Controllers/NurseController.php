@@ -19,23 +19,45 @@ class NurseController extends Controller
 {
 
 
-
-    public $successStatus = 200;
     /**
-     * login api
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function login(){
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+    public function login(Request $request)
+    {
+
+        $email = $request->get('email');
+        $password = $request->get('password');
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')-> accessToken;
-            return response()->json(['success' => $success], $this-> successStatus);
+            $success['token'] = $user->createToken('MyApp')->accessToken;
+            return response()->json(['success' => $success]);
+        } else {
+            return response()->json(['error' => 'error', 400]);
         }
-        else{
-            return response()->json(['error'=>'Unauthorised'], 401);
-        }
+
     }
+
+
+
+
+
+//    public $successStatus = 200;
+//    /**
+//     * login api
+//     *
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function login(){
+//        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+//            $user = Auth::user();
+//            $success['token'] =  $user->createToken('MyApp')-> accessToken;
+//            return response()->json(['success' => $success], $this-> successStatus);
+//        }
+//        else{
+//            return response()->json(['error'=>'Unauthorised'], 401);
+//        }
+//    }
     /**
      * Register api
      *
@@ -56,7 +78,7 @@ class NurseController extends Controller
         $user = Nurse::create($input);
         $success['token'] =  $user->createToken('MyApp')-> accessToken;
         $success['name'] =  $user->name;
-        return response()->json(['success'=>$success], $this-> successStatus);
+        return response()->json(['success'=>$success]);
     }
     /**
      * details api
