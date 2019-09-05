@@ -20,8 +20,8 @@ use Illuminate\Http\Request;
 
 
 
-Route::post('/login', 'NurseController@login');
-Route::post('/register', 'NurseController@register');
+Route::post('/nurse/login', 'NurseController@login');
+Route::post('/nurse/register', 'NurseController@register');
 Route::group(['middleware' => 'auth:nurse'], function(){
     Route::delete('/details', 'NurseController@details');
 

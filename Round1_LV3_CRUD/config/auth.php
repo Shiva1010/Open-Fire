@@ -41,11 +41,11 @@ return [
             'provider' => 'users',
         ],
 
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
-        ],
+//        'api' => [
+//            'driver' => 'token',
+//            'provider' => 'users',
+//            'hash' => false,
+//        ],
 
 
 
@@ -58,7 +58,11 @@ return [
         'nurse' => [
             'driver' => 'passport',
             'provider' => 'nurses',
-            'hash' => false,
+        ],
+
+        'nurse_web' => [
+            'driver' => 'session',
+            'provider' => 'nurses',
         ],
 
 

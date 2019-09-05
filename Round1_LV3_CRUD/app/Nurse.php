@@ -2,32 +2,32 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
+namespace App;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-
-
-
-//class Nurse extends Model
-
-
+use Illuminate\Foundation\Auth\User as Authenticatable;
 class Nurse extends Authenticatable
 {
+
+
     use HasApiTokens, Notifiable;
-
+    protected $table = 'nurse';
     protected $guard = 'nurse';
-
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'name', 'email', 'password'
+        'name', 'email', 'password',
     ];
-
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
     protected $hidden = [
-        'password', 'remember_token'
+        'password', 'remember_token',
     ];
 }
-
-
-

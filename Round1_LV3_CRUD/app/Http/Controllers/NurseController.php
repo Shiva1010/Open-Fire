@@ -15,33 +15,56 @@ use Validator;
 
 
 
+
+
+
+
+
+
+
 class NurseController extends Controller
 {
 
 
+    public $successStatus = 200;
+
+    public function login(Request $request)
+    {
+        $nurse =Nurse::where('email', $request->NurseEmail)->where('password', $request->NursePassword);
+
+//        $email = $request->get('email');
+//        $password = $request->get('password');
+
+        if (Auth::attempt($nurse)) {
+            $user = Auth::guard('nurse')->Auth::user();
+            $success['token'] = $user->createToken('love')->accessToken;
+            return response()->json(['success' => $success, $this->successStatus]);
+        } else {
+            return response()->json(['error' => 'error', 400]);
+        }
+    }
+
+//
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
-    {
+//    public function login(Request $request)
+//    {
+//
+//        $email = $request->get('email');
+//        $password = $request->get('password');
+//        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+//            $user = Auth::user();
+//            $success['token'] = $user->createToken('MyApp')->accessToken;
+//            return response()->json(['success' => $success]);
+//        } else {
+//            return response()->json(['error' => 'error', 400]);
+//        }
+//
+//    }
 
-        $email = $request->get('email');
-        $password = $request->get('password');
-        if (Auth::attempt(['email' => $email, 'password' => $password])) {
-            $user = Auth::user();
-            $success['token'] = $user->createToken('MyApp')->accessToken;
-            return response()->json(['success' => $success]);
-        } else {
-            return response()->json(['error' => 'error', 400]);
-        }
-
-    }
-
-
-
-
-
+//
 //    public $successStatus = 200;
 //    /**
 //     * login api
